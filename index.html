@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COPAS-eng | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a2e;
+            --accent:#e94560;--green:#00b894;--blue:#0984e3;
+            --text:#e0e0e0;--text2:#888;--border:#222;
+        }
+        html{scroll-behavior:smooth}
+        body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+        ::-webkit-scrollbar{width:6px}
+        ::-webkit-scrollbar-track{background:var(--bg)}
+        ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+
+        /* ── NAV ── */
+        nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,15,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px}
+        .logo{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--accent);letter-spacing:2px}
+        .nav-links{display:flex;gap:30px;list-style:none}
+        .nav-links a{color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;transition:.3s}
+        .nav-links a:hover{color:var(--accent)}
+
+        /* ── HERO ── */
+        .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 80px;position:relative}
+        .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(233,69,96,.08),transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(0,184,148,.06),transparent 60%);pointer-events:none}
+        .hero-tag{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.85rem;margin-bottom:15px;letter-spacing:2px}
+        .hero h1{font-size:4rem;font-weight:900;line-height:1.1;margin-bottom:20px}
+        .hero h1 span{color:var(--accent)}
+        .hero p{font-size:1.2rem;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:30px}
+        .hero-buttons{display:flex;gap:15px}
+        .btn{padding:12px 30px;border-radius:6px;font-weight:600;font-size:.9rem;text-decoration:none;transition:.3s;cursor:pointer;border:none}
+        .btn-primary{background:var(--accent);color:#fff}
+        .btn-primary:hover{background:#ff6b81;transform:translateY(-2px)}
+        .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+        .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+        /* ── SECTIONS ── */
+        section{padding:100px 80px}
+        .section-tag{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.8rem;letter-spacing:3px;margin-bottom:10px;text-transform:uppercase}
+        .section-title{font-size:2.5rem;font-weight:900;margin-bottom:15px}
+        .section-sub{color:var(--text2);font-size:1rem;margin-bottom:50px;max-width:500px}
+
+        /* ── SKILLS GRID ── */
+        .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+        .skill-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:30px;transition:.3s;position:relative;overflow:hidden}
+        .skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transition:.3s;transform-origin:left}
+        .skill-card:hover{border-color:var(--accent);transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+        .skill-card:hover::before{transform:scaleX(1)}
+        .skill-card .icon{font-size:2rem;margin-bottom:15px}
+        .skill-card h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
+        .skill-card p{color:var(--text2);font-size:.85rem;line-height:1.6}
+        .skill-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}
+        .skill-tag{background:rgba(233,69,96,.1);color:var(--accent);padding:4px 10px;border-radius:20px;font-size:.7rem;font-weight:600}
+        .skill-card.green .icon{color:var(--green)}
+        .skill-card.green .skill-tag{background:rgba(0,184,148,.1);color:var(--green)}
+        .skill-card.green:hover{border-color:var(--green)}
+        .skill-card.green::before{background:var(--green)}
+        .skill-card.blue .icon{color:var(--blue)}
+        .skill-card.blue .skill-tag{background:rgba(9,132,227,.1);color:var(--blue)}
+        .skill-card.blue:hover{border-color:var(--blue)}
+        .skill-card.blue::before{background:var(--blue)}
+
+        /* ── STATS ── */
+        .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;padding:60px 80px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+        .stat{text-align:center}
+        .stat .num{font-size:3rem;font-weight:900;color:var(--accent)}
+        .stat .label{color:var(--text2);font-size:.85rem;margin-top:5px}
+
+        /* ── GITHUB ── */
+        .github-section{background:var(--bg2);text-align:center}
+        .github-link{display:inline-flex;align-items:center;gap:10px;padding:15px 40px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);text-decoration:none;font-weight:600;transition:.3s;margin-top:20px}
+        .github-link:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+        .github-link svg{width:24px;fill:var(--text)}
+
+        /* ── CONTACT ── */
+        .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+        .contact-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:25px;text-align:center;transition:.3s;text-decoration:none;color:var(--text)}
+        .contact-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+        .contact-card .icon{font-size:1.8rem;margin-bottom:10px}
+        .contact-card h4{font-size:.9rem;margin-bottom:5px}
+        .contact-card p{color:var(--text2);font-size:.8rem}
+
+        /* ── FOOTER ── */
+        footer{text-align:center;padding:40px;color:var(--text2);font-size:.8rem;border-top:1px solid var(--border)}
+
+        /* ── ANIMATIONS ── */
+        .fade-in{opacity:0;transform:translateY(30px);transition:.6s ease}
+        .fade-in.visible{opacity:1;transform:translateY(0)}
+
+        /* ── TERMINAL ── */
+        .terminal{background:#0d0d1a;border:1px solid var(--border);border-radius:10px;padding:25px;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.8;max-width:700px;margin-top:30px}
+        .terminal .prompt{color:var(--green)}
+        .terminal .cmd{color:var(--text)}
+        .terminal .output{color:var(--text2)}
+        .terminal .highlight{color:var(--accent)}
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:1024px){
+            .skills-grid{grid-template-columns:repeat(2,1fr)}
+            .stats{grid-template-columns:repeat(2,1fr)}
+            section{padding:80px 40px}
+            .hero{padding:0 40px}
+        }
+        @media(max-width:768px){
+            .hero h1{font-size:2.5rem}
+            .skills-grid,.contact-grid{grid-template-columns:1fr}
+            .stats{grid-template-columns:repeat(2,1fr);padding:40px}
+            nav{padding:0 20px}
+            .nav-links{display:none}
+            section{padding:60px 20px}
+            .hero{padding:0 20px}
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="logo">COPAS-ENG</div>
+    <ul class="nav-links">
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#about">Sobre</a></li>
+        <li><a href="#github">GitHub</a></li>
+        <li><a href="#contact">Contato</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-tag">// WELCOME TO MY PORTFOLIO</div>
+    <h1>Infraestrutura,<br><span>Seguranca</span> &<br><span>Inteligencia</span><br>Artificial.</h1>
+    <p>Engenheiro de sistemas especializado em infraestrutura de servidores, seguranca cibernetica e integracao de inteligencia artificial. Apaixonado por tecnologia e automacao.</p>
+    <div class="hero-buttons">
+        <a href="#skills" class="btn btn-primary">Ver Skills</a>
+        <a href="https://github.com/COPAS-eng" target="_blank" class="btn btn-outline">GitHub</a>
+    </div>
+    <div class="terminal">
+        <div><span class="prompt">copas@portfolio</span><span class="cmd">:~$</span> <span class="output">cat skills.json | jq '.areas'</span></div>
+        <div><span class="output">[</span></div>
+        <div><span class="output">  </span><span class="highlight">"Infraestrutura & Servidores"</span><span class="output">,</span></div>
+        <div><span class="output">  </span><span class="highlight">"Seguranca Cibernetica"</span><span class="output">,</span></div>
+        <div><span class="output">  </span><span class="highlight">"Inteligencia Artificial & Virtualizacao"</span></div>
+        <div><span class="output">]</span></div>
+        <div><span class="prompt">copas@portfolio</span><span class="cmd">:~$</span> <span class="output" id="typed"></span><span class="cmd">|</span></div>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+    <div class="stat fade-in">
+        <div class="num">3+</div>
+        <div class="label">Areas de Especializacao</div>
+    </div>
+    <div class="stat fade-in">
+        <div class="num">15+</div>
+        <div class="label">Tecnologias Dominadas</div>
+    </div>
+    <div class="stat fade-in">
+        <div class="num">24/7</div>
+        <div class="label">Dedicacao Total</div>
+    </div>
+    <div class="stat fade-in">
+        <div class="num">100%</div>
+        <div class="label">Compromisso</div>
+    </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+    <div class="section-tag">// SKILLS</div>
+    <div class="section-title">Areas de Especializacao</div>
+    <div class="section-sub">Conhecimento tecnico aprofundado em infraestrutura, seguranca e inteligencia artificial.</div>
+
+    <div class="skills-grid">
+        <!-- INFRA -->
+        <div class="skill-card fade-in">
+            <div class="icon">&#x1F5A5;</div>
+            <h3>Infraestrutura & Servidores</h3>
+            <p>Administracao completa de servidores Linux e Windows, clusters de virtualizacao e orquestracao de containers.</p>
+            <div class="skill-tags">
+                <span class="skill-tag">Linux</span>
+                <span class="skill-tag">Proxmox VE</span>
+                <span class="skill-tag">Hyper-V</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Nginx</span>
+                <span class="skill-tag">Apache</span>
+                <span class="skill-tag">DNS/DHCP/VPN</span>
+                <span class="skill-tag">Active Directory</span>
+                <span class="skill-tag">Zabbix</span>
+                <span class="skill-tag">Grafana</span>
+                <span class="skill-tag">Prometheus</span>
+            </div>
+        </div>
+
+        <!-- SEGURANCA -->
+        <div class="skill-card green fade-in">
+            <div class="icon">&#x1F512;</div>
+            <h3>Seguranca Cibernetica</h3>
+            <p>Protecao de redes, avaliacao de vulnerabilidades, pentesting e resposta a incidentes de seguranca.</p>
+            <div class="skill-tags">
+                <span class="skill-tag">Network Security</span>
+                <span class="skill-tag">Pentesting</span>
+                <span class="skill-tag">Red Team</span>
+                <span class="skill-tag">Firewall</span>
+                <span class="skill-tag">IDS/IPS</span>
+                <span class="skill-tag">Snort</span>
+                <span class="skill-tag">Suricata</span>
+                <span class="skill-tag">PKI</span>
+                <span class="skill-tag">Hardening</span>
+                <span class="skill-tag">Incident Response</span>
+            </div>
+        </div>
+
+        <!-- IA -->
+        <div class="skill-card blue fade-in">
+            <div class="icon">&#x1F9E0;</div>
+            <h3>IA & Virtualizacao</h3>
+            <p>Integracao de inteligencia artificial, automacao de processos e gestao de clusters de alta disponibilidade.</p>
+            <div class="skill-tags">
+                <span class="skill-tag">Hyper-V</span>
+                <span class="skill-tag">Proxmox (KVM/LXC)</span>
+                <span class="skill-tag">AI Integration</span>
+                <span class="skill-tag">ML Pipelines</span>
+                <span class="skill-tag">GPU Passthrough</span>
+                <span class="skill-tag">HA Clusters</span>
+                <span class="skill-tag">VM Orchestration</span>
+                <span class="skill-tag">Resource Optimization</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--bg2)">
+    <div class="section-tag">// ABOUT ME</div>
+    <div class="section-title">Quem sou eu</div>
+    <div class="section-sub">Engenheiro de sistemas com foco em infraestrutura moderna e seguranca.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+        <div>
+            <p style="color:var(--text2);line-height:1.8;margin-bottom:20px">Sou um profissional apaixonado por tecnologia com experiencia em administracao de servidores, seguranca cibernetica e integracao de inteligencia artificial. Minha abordagem combina conhecimento tecnico aprofundado com uma visao estrategica de negocios.</p>
+            <p style="color:var(--text2);line-height:1.8">Desde configurar clusters de alta disponibilidade ate implementar solucoes de IA para automatizar processos complexos, estou sempre buscando inovar e otimizar infraestruturas.</p>
+        </div>
+        <div class="terminal">
+            <div><span class="prompt">copas@portfolio</span><span class="cmd">:~$</span> <span class="output">neofetch --short</span></div>
+            <div><span class="output">OS: Windows / Linux</span></div>
+            <div><span class="output">Shell: PowerShell / Bash</span></div>
+            <div><span class="output">Editor: VS Code</span></div>
+            <div><span class="output">VMs: Proxmox, Hyper-V</span></div>
+            <div><span class="output">Containers: Docker</span></div>
+            <div><span class="output">Monitoring: Zabbix, Grafana</span></div>
+            <div><span class="output">Security: Snort, Suricata</span></div>
+            <div><span class="output">AI: Python, ML Pipelines</span></div>
+            <div><span class="prompt">copas@portfolio</span><span class="cmd">:~$</span> <span class="output" id="typed2"></span><span class="cmd">|</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- GITHUB -->
+<section id="github" class="github-section">
+    <div class="section-tag">// GITHUB</div>
+    <div class="section-title">Meu Perfil GitHub</div>
+    <div class="section-sub" style="margin:0 auto 10px">Confira meus repositorios e contribuicoes.</div>
+    <a href="https://github.com/COPAS-eng" target="_blank" class="github-link">
+        <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        COPAS-eng
+    </a>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="section-tag">// CONTACT</div>
+    <div class="section-title">Contato</div>
+    <div class="section-sub">Vamos conectar.</div>
+    <div class="contact-grid">
+        <a href="https://github.com/COPAS-eng" target="_blank" class="contact-card fade-in">
+            <div class="icon">&#x1F4BB;</div>
+            <h4>GitHub</h4>
+            <p>COPAS-eng</p>
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="contact-card fade-in">
+            <div class="icon">&#x1F4BC;</div>
+            <h4>LinkedIn</h4>
+            <p>Conectar</p>
+        </a>
+        <a href="mailto:proton2123@users.noreply.github.com" class="contact-card fade-in">
+            <div class="icon">&#x2709;</div>
+            <h4>Email</h4>
+            <p>proton2123@users.noreply.github.com</p>
+        </a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 COPAS-eng. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+// Typing effect
+function typeWriter(id, texts, speed) {
+    let el = document.getElementById(id);
+    let i = 0, j = 0, current = '', deleting = false;
+    function tick() {
+        if (!deleting && j < texts.length) {
+            current = texts[j].substring(0, i + 1);
+            el.textContent = current;
+            i++;
+            if (i === texts[j].length) { deleting = true; setTimeout(tick, 2000); return; }
+        } else if (deleting && i > 0) {
+            current = texts[j].substring(0, i - 1);
+            el.textContent = current;
+            i--;
+        } else if (deleting && i === 0) {
+            deleting = false;
+            j = (j + 1) % texts.length;
+        }
+        setTimeout(tick, deleting ? 30 : speed);
+    }
+    tick();
+}
+typeWriter('typed', ['whoami', 'neofetch --short', 'docker ps -a', 'ssh server@prod'], 80);
+typeWriter('typed2', ['cat /etc/os-release', 'systemctl status nginx', 'iptables -L', 'python3 ai.py'], 80);
+
+// Fade in on scroll
+const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
